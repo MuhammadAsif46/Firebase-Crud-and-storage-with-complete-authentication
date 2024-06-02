@@ -30,25 +30,24 @@ const Signup = () => {
       const newUser = response.user;
 
       if (newUser) {
-       await updateProfile(newUser, {
-        displayName: user.userName,
-      });
-      Swal.fire({
-        icon: "success",
-        title: "your accout has been created please login!",
-        showConfirmButton: false,
-        timer: 1000,
-      });
-      navigate("/profile");
+        await updateProfile(newUser, {
+          displayName: user.userName,
+        });
+        Swal.fire({
+          icon: "success",
+          title: "your accout has been created please login!",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        navigate("/profile");
       }
 
-      
       console.log(response.user);
       // Navigate to profile page or another page
       // navigate("/profile");
     } catch (error) {
-      console.log(error.message);
-      console.log(error.code);
+      // console.log(error.message);
+      // console.log(error.code);
       setErrorMessage(error.code);
     }
   };

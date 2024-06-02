@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 } */
+
+.focus:focus-visible{
+  outline: 1px solid #888;
+  border-radius: 5px;
+}

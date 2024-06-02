@@ -26,15 +26,6 @@ const Profile = () => {
     editText: "",
   });
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     const getData = async () => {
       const getAllPosts = await getDocs(collection(db, "posts"));
@@ -78,6 +69,12 @@ const Profile = () => {
         // createdOn: new Date().getTime(),
         createdOn: serverTimestamp(),
       });
+      Swal.fire({
+        icon: "success",
+        title: "Your post has been created successfully",
+        showConfirmButton: false,
+        timer: 1000,
+      });
       e.target.reset();
       setIsLoading(false);
       console.log("Document written with ID: ", createPost.id);
@@ -88,21 +85,75 @@ const Profile = () => {
   };
 
   const deleteHandler = async (postId) => {
-    await deleteDoc(doc(db, "posts", postId));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+        await deleteDoc(doc(db, "posts", postId));
+      }
+    });
   };
 
   const updatePostHandler = async (e) => {
     e.preventDefault();
     try {
-      await updateDoc(doc(db, "posts", editPost.editId), {
-        text: editPost.editText,
-      });
-      setEditPost({
-        editId: null,
-        editText: "",
+      Swal.fire({
+        title: "Do you want to save the changes?",
+        showCancelButton: true,
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Save",
+        confirmButtonColor: "#3085d6",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await updateDoc(doc(db, "posts", editPost.editId), {
+            text: editPost.editText,
+          });
+          setEditPost({
+            editId: null,
+            editText: "",
+          });
+          Swal.fire("Saved!", "", "success");
+        }
       });
     } catch (error) {
       console.log("error->", error.message);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Sure",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Logout!",
+            text: "Your session has been deleted.",
+            icon: "success",
+          });
+          await signOut(auth);
+          navigate("/");
+        }
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
