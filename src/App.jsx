@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import ProfilePage from "./pages/ProfilePage";
 import UpdatePasswordPage from "./pages/UpdatePasswordPage";
+import UpdateProfilePage from "./pages/UpdateProfilePage";
 import { auth, onAuthStateChanged } from "./firebase/firebaseConfig";
 
 function App() {
@@ -38,7 +39,14 @@ function App() {
           path="/profile"
           element={user ? <ProfilePage /> : <Navigate to="/" />}
         />
-        <Route path="/update-password" element={user ? <UpdatePasswordPage /> : <Navigate to="/" />} />
+        <Route
+          path="/update-password"
+          element={user ? <UpdatePasswordPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/update-profile"
+          element={user ? <UpdateProfilePage /> : <Navigate to="/" />}
+        />
       </Routes>
     </>
   );
