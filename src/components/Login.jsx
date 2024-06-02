@@ -28,8 +28,16 @@ const Login = () => {
         user.email,
         user.password
       );
-      console.log(response.user);
-      navigate("/profile");
+      // console.log(response.user);
+      if (response) {
+        Swal.fire({
+          icon: "success",
+          title: "you are logged in successfully ",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        navigate("/profile");
+      }
     } catch (error) {
       // console.log(error.code);
       setErrorMessage(error.code);
@@ -46,6 +54,14 @@ const Login = () => {
       // The signed-in user info.
       const user = result.user;
       console.log("user-->", user);
+      if (token) {
+        Swal.fire({
+          icon: "success",
+          title: "you are logged in successfully ",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
     } catch (error) {
       // Handle Errors here.
       const errorCode = error.code;
@@ -66,6 +82,14 @@ const Login = () => {
       const token = credential.accessToken;
       const user = resultGithub.user;
       console.log("user-->", user);
+      if (token) {
+        Swal.fire({
+          icon: "success",
+          title: "you are logged in successfully ",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
