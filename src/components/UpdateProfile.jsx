@@ -6,7 +6,7 @@ import {
   getDownloadURL,
   auth,
   updateProfile,
-} from "../../firebase/firebaseConfig";
+} from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 
 const UpdateProfile = () => {

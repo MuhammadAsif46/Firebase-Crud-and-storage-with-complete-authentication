@@ -83,5 +83,4 @@ export {
   uploadBytesResumable,
   getDownloadURL,
   deleteObject, 
-  updateProfile
 };
