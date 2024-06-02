@@ -1,6 +1,39 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth,signInWithPopup,GithubAuthProvider ,GoogleAuthProvider , createUserWithEmailAndPassword,updatePassword , signInWithEmailAndPassword,signOut, onAuthStateChanged, updateProfile } from "firebase/auth";
+import {
+  getAuth,
+  signInWithPopup,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  updatePassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  updateProfile,
+} from "firebase/auth";
+
+import {
+  getFirestore,
+  collection,
+  doc,
+  addDoc,
+  getDocs,
+  onSnapshot,
+  query,
+  serverTimestamp,
+  orderBy,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
+
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAg9-hPna4Ps2Pk8_5waAZn9HIWQqzWQ_A",
@@ -20,15 +53,35 @@ export const db = getFirestore(app);
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
 
+// Create a root reference
+export const storage = getStorage();
+
 export const provider = new GoogleAuthProvider();
 export const providerGithub = new GithubAuthProvider();
 
 export {
-  createUserWithEmailAndPassword, //sign up 
+  createUserWithEmailAndPassword, //sign up
   signInWithEmailAndPassword, // sign in
   signOut, //log out
   onAuthStateChanged, // user is authenticated
   updateProfile, //profile update
   updatePassword, // password update
-  signInWithPopup, // sign in popup with social networks 
-}
+  signInWithPopup, // sign in popup with social networks
+  collection,
+  addDoc,
+  getDocs,
+  onSnapshot,
+  query,
+  doc,
+  serverTimestamp,
+  orderBy,
+  updateDoc,
+  deleteDoc,
+  ref,
+  getStorage,
+  uploadBytes,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject, 
+  updateProfile
+};
