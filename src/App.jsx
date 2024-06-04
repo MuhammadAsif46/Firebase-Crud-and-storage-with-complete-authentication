@@ -10,11 +10,13 @@ import { auth, onAuthStateChanged } from "./firebase/firebaseConfig";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [isLoading,setIsLoading] = useState(true);
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        setIsLoading(false)
       } else {
         setUser(null);
       }
@@ -23,6 +25,9 @@ function App() {
     // Cleanup subscription on unmount
     return () => unSubscribe();
   }, [auth]);
+  if (isLoading) { // Show a loading message or component while auth state is being determined
+    return <div className="flex justify-center items-center text-4xl" style={{height:"100vh"}}>Loading...</div>;
+  }
 
   return (
     <>

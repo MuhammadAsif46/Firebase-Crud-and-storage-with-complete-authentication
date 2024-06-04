@@ -69,11 +69,10 @@ const UpdateProfile = () => {
     }
   };
 
-
   return (
     <div className="bg-white p-5 mt-10 mx-auto w-1/3 rounded-md shadow-lg">
       <form onSubmit={uploadBtn}>
-        <div className="border h-64 rounded flex justify-center items-center">
+        <div className="border relative h-64 rounded flex-col flex justify-center  items-center">
           <input
             hidden
             type="file"
@@ -86,11 +85,11 @@ const UpdateProfile = () => {
             }}
           />
 
-          {imageUpload ? (
+          {imageUpload || auth.currentUser.photoURL ? (
             <div className="">
               <img
                 className="object-cover"
-                src={imageUpload}
+                src={imageUpload || auth.currentUser.photoURL}
                 alt="image"
                 width="100%"
                 height="100%"
@@ -119,6 +118,14 @@ const UpdateProfile = () => {
                 </svg>
               </label>
             </div>
+          )}
+          {(imageUpload || auth.currentUser.photoURL) && (
+            <label
+              htmlFor="file"
+              className="absolute bottom-7 right-14 bg-slate-500 text-white px-4 py-1 rounded-md"
+            >
+              Edit
+            </label>
           )}
         </div>
         <div className="mt-5">
