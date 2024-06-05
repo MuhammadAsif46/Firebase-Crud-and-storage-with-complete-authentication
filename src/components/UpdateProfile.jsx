@@ -51,8 +51,6 @@ const UpdateProfile = () => {
 
   const uploadBtn = async (e) => {
     e.preventDefault();
-    console.log("imageUpload-->", newImage[0]);
-    console.log("username-->", userName);
     try {
       const res = await uploadFile(newImage[0]);
       console.log("res-->", res);
@@ -61,7 +59,12 @@ const UpdateProfile = () => {
           displayName: userName,
           photoURL: res,
         });
-        console.log("auth.currentUser-->", auth.currentUser);
+        Swal.fire({
+          icon: "success",
+          title: "your profile has been updated successfully ",
+          showConfirmButton: false,
+          timer: 1000,
+        });
         navigate("/");
       }
     } catch (error) {

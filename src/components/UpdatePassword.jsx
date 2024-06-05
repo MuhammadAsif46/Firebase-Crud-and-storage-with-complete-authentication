@@ -30,8 +30,14 @@ const UpdatePassword = () => {
 
       // Update password
       await updatePassword(user, password.newPassword);
-      alert("Password updated successfully");
+      Swal.fire({
+        icon: "success",
+        title: "your password updated successfully ",
+        showConfirmButton: false,
+        timer: 500,
+      });
       navigate("/profile");
+      
     } catch (error) {
       console.log(error.code);
       setErrorMessage(error.message);

@@ -20,7 +20,6 @@ const Profile = () => {
   const navigate = useNavigate();
   const [post, setPost] = useState("");
   const [allPosts, setAllPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [editPost, setEditPost] = useState({
     editId: null,
     editText: "",
@@ -63,12 +62,13 @@ const Profile = () => {
     e.preventDefault();
 
     try {
-      setIsLoading(true);
+
       const createPost = await addDoc(collection(db, "posts"), {
         text: post,
         // createdOn: new Date().getTime(),
         createdOn: serverTimestamp(),
       });
+
       Swal.fire({
         icon: "success",
         title: "Your post has been created successfully",
@@ -76,11 +76,9 @@ const Profile = () => {
         timer: 1000,
       });
       e.target.reset();
-      setIsLoading(false);
       console.log("Document written with ID: ", createPost.id);
     } catch (e) {
       console.error("Error adding document: ", e);
-      setIsLoading(false);
     }
   };
 
@@ -211,14 +209,14 @@ const Profile = () => {
               <div className="flex gap-3 justify-center">
                 {editPost.editId === eachPost?.id ? (
                   <button
-                    className="px-5 py-2 font-medium text-center text-white bg-[#] rounded-lg hover:bg-[#3cadc4] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-[#00b4d8] dark:hover:bg-[#269bb3] dark:focus:ring-blue-800"
+                    className="px-5 py-2 font-medium text-center text-white bg-[#] rounded-lg hover:bg-[#3cadc4] focus:ring-1 focus:outline-none focus:ring-blue-300 dark:bg-[#00b4d8] dark:hover:bg-[#269bb3] dark:focus:ring-blue-800"
                     onClick={updatePostHandler}
                   >
                     Update
                   </button>
                 ) : (
                   <button
-                    className="px-5 py-2 font-medium text-center text-white bg-[#] rounded-lg hover:bg-[#3cadc4] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-[#00b4d8] dark:hover:bg-[#269bb3] dark:focus:ring-blue-800"
+                    className="px-5 py-2 font-medium text-center text-white bg-[#] rounded-lg hover:bg-[#3cadc4] focus:ring-1 focus:outline-none focus:ring-blue-300 dark:bg-[#00b4d8] dark:hover:bg-[#269bb3] dark:focus:ring-blue-800"
                     onClick={() => {
                       setEditPost({
                         editId: eachPost?.id,
@@ -231,7 +229,7 @@ const Profile = () => {
                 )}
                 <button
                   onClick={() => deleteHandler(eachPost?.id)}
-                  className="px-3 py-2 font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-[#ef233c] dark:hover:bg-red-700 dark:focus:ring-red-800"
+                  className="px-3 py-2 font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-1 focus:outline-none focus:ring-red-300 dark:bg-[#ef233c] dark:hover:bg-red-700 dark:focus:ring-red-800"
                 >
                   Delete
                 </button>

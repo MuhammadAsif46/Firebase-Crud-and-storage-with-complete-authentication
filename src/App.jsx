@@ -16,10 +16,10 @@ function App() {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        setIsLoading(false)
       } else {
         setUser(null);
       }
+      setIsLoading(false)
     });
 
     // Cleanup subscription on unmount
