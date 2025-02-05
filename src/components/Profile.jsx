@@ -15,6 +15,7 @@ import {
   auth,
   signOut,
 } from "../firebase/firebaseConfig";
+import { setDoc } from "firebase/firestore";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ const Profile = () => {
 
     try {
 
-      const createPost = await addDoc(collection(db, "posts"), {
+      const createPost = await setDoc(doc(db, "posts"), {
         text: post,
         // createdOn: new Date().getTime(),
         createdOn: serverTimestamp(),
